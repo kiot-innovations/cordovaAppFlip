@@ -1,27 +1,28 @@
 {
   "name": "cordova-plugin-appflip",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "AppFlip for google assistant integration",
   "cordova": {
     "id": "cordova-plugin-appflip",
     "platforms": [
-      "ios",
       "android"
     ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sowmya-kiot/cordovaAppFlip.git"
   },
   "keywords": [
     "ecosystem:cordova",
     "cordova-ios",
-    "cordova-android"
+    "cordova-android",
+    "appflip",
+    "google"
   ],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sowmya-kiot/cordovaAppFlip/issues"
+  "author": "KIOT Innovations",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiot-innovations/cordovaAppFlip.git"
   },
-  "homepage": "https://github.com/sowmya-kiot/cordovaAppFlip#readme"
+  "bugs": {
+    "url": "https://github.com/kiot-innovations/cordovaAppFlip/issues"
+  },
+  "homepage": "https://github.com/kiot-innovations/cordovaAppFlip#readme"
 }
