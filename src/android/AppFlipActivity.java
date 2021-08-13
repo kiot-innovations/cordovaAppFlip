@@ -10,11 +10,12 @@ import android.content.pm.Signature;
 import android.nfc.NdefMessage;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import com.chariotsolutions.nfc.plugin.NfcPlugin;
 
@@ -31,11 +32,9 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.kiotbeta.dev.MainActivity;
-import io.kiotbeta.dev.R;
 
 public class AppFlipActivity extends Activity {
-    AppFlip appflip = new AppFlip();
+
     private static String TAG = "AppFlipLogs";
     private String clientId, scopes, redirectUri;
     private static final String EXTRA_APP_FLIP_CLIENT_ID = "CLIENT_ID";
@@ -45,12 +44,13 @@ public class AppFlipActivity extends Activity {
     static Intent result = new Intent();
     private String callingAppPackageName = "com.google.android.googlequicksearchbox";
     private String callingAppFingerprint = "F0:FD:6C:5B:41:0F:25:CB:25:C3:B5:33:46:C8:97:2F:AE:30:F8:EE:74:11:DF:91:04:80:AD:6B:2D:60:DB:83";
+
+    private static final int MAINACTIVITY_RESULT_INTENT = 105;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        //WindowManager.LayoutParams wlp = getWindow().getAttributes();
-        //setContentView(R.layout.your_layout_id);
         setWindowParams();
         try {
             Intent intent = getIntent();
@@ -75,31 +75,25 @@ public class AppFlipActivity extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Intent intent = new Intent(this,MainActivity.class);
-//        intent.setPackage("io.kiotbeta.dev");
-//        intent.setAction("android.intent.action.MAIN");
-       startActivityForResult(intent,105);
-        //finish();
-        //forceMainActivityReload();
+        PackageManager pm = getPackageManager();
+        Intent launchIntent = pm.getLaunchIntentForPackage(getApplicationContext().getPackageName());
+        startActivityForResult(launchIntent, MAINACTIVITY_RESULT_INTENT);
 
     }
 
     public void setWindowParams() {
-        //super.onAttachedToWindow();
         WindowManager.LayoutParams wlp = getWindow().getAttributes();
-        //final View view = getWindow().getDecorView();
         wlp.width = 0;
         wlp.height = 0;
         wlp.dimAmount = 0;
         wlp.flags = WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS |
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
-        //getWindowManager().updateViewLayout(view, wlp);
         getWindow().setAttributes(wlp);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 105){
+        if(requestCode == MAINACTIVITY_RESULT_INTENT){
             setResult(resultCode,data);
             finish();
         }
@@ -156,29 +150,5 @@ public class AppFlipActivity extends Activity {
     private void sendPushPayload(String clientId) throws JSONException {
         Log.d(TAG, "==> USER entered appflip");
         AppFlip.setInitialPushPayload(clientId);
-//        Bundle intentExtras = getIntent().getExtras();
-//        if(intentExtras == null) {
-//            return;
-//        }
-//        Map<String, Object> data = new HashMap<String, Object>();
-//        data.put("wasTapped", true);
-//        for (String key : intentExtras.keySet()) {
-//            Object value = intentExtras.get(key);
-//            Log.d(TAG, "\tKey: " + key + " Value: " + value);
-//            data.put(key, value);
-//        }
-//        Parcelable[] rawMessages = (Parcelable[]) intentExtras.get("android.nfc.extra.NDEF_MESSAGES");
-//        if (rawMessages != null) {
-//            NdefMessage[] messages = new NdefMessage[rawMessages.length];
-//            for (int i = 0; i < rawMessages.length; i++) {
-//                messages[i] = (NdefMessage) rawMessages[i];
-//            }
-//            NfcPlugin.setInitialPushPayload(messages);
-//        }
-    }
-    private void forceMainActivityReload() {
-        PackageManager pm = getPackageManager();
-        Intent launchIntent = pm.getLaunchIntentForPackage(getApplicationContext().getPackageName());
-        startActivity(launchIntent);
     }
 }
