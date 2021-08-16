@@ -14,7 +14,7 @@
   <config-file parent="/manifest/application" target="AndroidManifest.xml" android:launchMode="singleTop">
     <activity android:name="com.appflip.plugin.AppFlipActivity">
             <intent-filter>
-                <action android:name="com.google.appflip-sample" />
+                <action android:name="INTENT_ACTION_FROM_CONSOLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
