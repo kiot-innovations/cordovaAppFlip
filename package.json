@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-appflip",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "AppFlip for google assistant integration",
   "cordova": {
     "id": "cordova-plugin-appflip",
